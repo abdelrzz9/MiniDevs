@@ -20,11 +20,10 @@
             break;
         }
         strcpy(chcpCho,name);
-    }
-    // problam
+}
     void getHumanCho(char *input){
         char name[9];
-        while(1){
+        while(true){
             printf("Enter ur chois \n");
             fgets(name,sizeof(name),stdin);
             name[strcspn(name,"\n")] = '\0';
@@ -40,7 +39,6 @@
             }
         }    
 }
-    // it work 
     void playRaond(bool *input1 , bool *input2){
         char humanChoice[9];
         char cmpChoice[9];
@@ -86,14 +84,29 @@
         *input1 = Tie;
         *input2 = humanWin;
 }
-
-
+void playGame(){
+    int  humanConWin = 0;
+    int  cmpConWin = 0;
+    bool draw;
+    bool humanWins;
+    while (humanConWin < 3 || cmpConWin < 3 )
+        {
+            playRaond(&draw,&humanWins);
+            if(draw){
+                continue;
+            }else{
+                if(humanWins){
+                    humanConWin++;
+                }else{
+                    cmpConWin++;
+                }
+                
+            }
+            
+    }
+}
     int main(){
-        bool human_isWin;
-        bool draw;
-
-
-        playRaond(&draw,&human_isWin);
+        playGame();
 }
 
 
