@@ -3,26 +3,25 @@
 #include<string.h>
 #include<time.h>
 #include<ctype.h> 
+#include<stdbool.h>
     void getComCho(char *chcpCho){
         const char *name;
         int random = rand() % 3 +1;
         switch(random){
             case 1:
-                name ="paper";
+                name ="Paper";
             break;
             case 2:
-                name ="scissors";
+                name ="Scissors";
             break;
             case 3:
-                name ="rock";
+                name ="Rock";
             break;
         }
         strcpy(chcpCho,name);
     }
     void getHumanCho(char *input){
         char name[9];
-        // int test ;
-        // printf("%d",(sizeof(name)/sizeof(name[1])));
         while(1){
             printf("Enter ur chois \n");
             fgets(name,sizeof(name),stdin);
@@ -32,9 +31,6 @@
                 name[i] = tolower(name[i]);
             }
             name[0] = toupper(name[0]);
-            // printf("%s",name);
-            // test = strcmp(name,"Rock");
-            // printf("%d\n",test);
             if(strcmp(name,"Rock") == 1|| strcmp(name,"Paper") == 1 ||strcmp(name,"Scissors") == 1){
                 strcpy(input,name);
                 break;
@@ -44,25 +40,51 @@
         }    
 }
     void playRaond(){
-        char compChois[9] ;
-        char humanChois[9] ;
-        getComCho(compChois);
-        getHumanCho(humanChois);
-        printf("%s",humanChois);
-        printf("%s",compChois);
+        char humanChoice[9];
+        char cmpChoice[9];
+        bool humanWin = false;
+        bool tel = false;
+        getHumanCho(humanChoice);
+        getComCho(cmpChoice);
+        if (strcmp(humanChoice,cmpChoice) == 0){
+            tel = true;
+            printf("");
+        }else{
+            switch (humanChoice[1])
+                {
+                    case 'R':
+                            if(cmpChoice[0] == 'P'){
+                                printf("u lost paper wins");
+                        }else{
+                            humanWin = true;
+                            printf("u win sissors lost");
+                        }
+                    break;
         
-    }
+                    case 'S':
+                            if(cmpChoice[0] == 'R'){
+                                printf("u lost rock wins");
+                            }else{
+                                humanWin = true;
+                                printf("u win paper lost");
+                        }
+                    break;
+                    case 'P':
+                            if(cmpChoice[0] == 'S'){
+                                printf("u lost sissors wins");
+                            }else{
+                                humanWin = true;
+                                printf("u win");
+                            }
+                    break;
+                    default:
+                    printf("error");
+                    break;
+                }
+        }
+}
+    
+
     int main(){
-        char name[9];
-        // printf("Enter ur chois\n");
-        // fgets(name,sizeof(name),stdin);
-        // printf("%s",name);
-        // int i = strcmp(name,"ahmde");
-        // printf("%d",i);
-        // // stcmp tcompaer sizeof name == 9 and sizeof ahmde == 4 ;
-        // char name[9];
-        // getHumanCho(name);
-        // printf("%s",name);
-        getHumanCho(name);
-        printf("%d",name);
+
 }
