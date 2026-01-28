@@ -38,7 +38,7 @@
             }
         }    
 }
-    void playRaond(bool *input1 , bool *input2){
+    void playRound(bool *input1 , bool *input2){
         char humanChoice[16];
         char cmpChoice[16];
         bool humanWin = false;
@@ -53,26 +53,26 @@
                 {
                     case 'R':
                             if(cmpChoice[0] == 'P'){
-                                printf("computer choise is a paper u lost\n");
+                                printf("u lost Computer chose: %s\n", cmpChoice);
                         }else{
                             humanWin = true;
-                            printf("u win cmputer choise ia a scissors\n");
+                            printf("u win Computer chose: %s\n", cmpChoice);
                         }
                     break;
                     case 'S':
                             if(cmpChoice[0] == 'R'){
-                                printf("u lost computer chois is a rock\n");
+                                printf("u lost Computer chose: %s\n", cmpChoice);
                             }else{
                                 humanWin = true;
-                                printf("u win computer choise is a paper \n");
+                                printf("u win Computer chose: %s\n", cmpChoice);
                         }
                     break;
                     case 'P':
                             if(cmpChoice[0] == 'S'){
-                                printf("u lost computer chois is a scissors\n");
+                                printf("u lost Computer chose: %s\n", cmpChoice);
                             }else{
                                 humanWin = true;
-                                printf("u win computer chois is a rock\n");
+                                printf("u win Computer chose: %s\n", cmpChoice);
                             }
                     break;
                     default:
@@ -84,35 +84,38 @@
         *input2 = humanWin;
 }
     void playGame(){
-    int  humanConWin = 0;
-    int  cmpConWin = 0;
-    int i = 1;
-    bool draw;
-    bool humanWins;
-    while (true )
-        {
-            printf("================\n");
-            printf("u are in raond %d\n",i);
-            printf("================\n");
-            playRaond(&draw,&humanWins);
-            if(draw){
-                i++;
-                continue;
-            }else{
-                if(humanWins){
-                    humanConWin++;
+        int  humanConWin = 0;
+        int  cmpConWin = 0;
+        int i = 1;
+        bool draw;
+        bool humanWins;
+        while (true )
+            {
+                printf("================\n");
+                printf("u are in Round %d\n",i);
+                printf("================\n");
+                playRound(&draw,&humanWins);
+                if(draw){
+                    i++;
+                    continue;
                 }else{
-                    cmpConWin++;
+                    if(humanWins){
+                        humanConWin++;
+                    }else{
+                        cmpConWin++;
+                    }
+                    
                 }
-                
-            }
-            if(humanConWin == 3 ||cmpConWin ==3){
-                break;
-            }
-            i++;
-    }
+                if(humanConWin == 3 ||cmpConWin ==3){
+                    break;
+                }
+                i++;
+                printf("Final Score => You: %d | Computer: %d\n",
+        humanConWin, cmpConWin);
+        }
 }
     int main(){
+        srand(time(NULL));
         playGame();
 }
 
