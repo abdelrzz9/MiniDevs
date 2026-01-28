@@ -4,6 +4,13 @@
 #include <string.h>
 #include <time.h>
 
+typedef struct 
+{
+    char move[10];
+    char beats[10];
+}Rule;
+
+
 void getComputerChoice(char *input)
 {
     char *name = "";
@@ -40,7 +47,7 @@ void getComputerChoice(char *input)
 
 void getHumanChoice(char *input)
 {
-    char name[9];
+    char name[16];
     while(1)
     {
         //get user input
@@ -68,14 +75,25 @@ void getHumanChoice(char *input)
      }
 }
 
-void PlayRound()
-{   while(1)
+int PlayRound()
+{          
+    char humanChoice[16];
+    char computerChoice[16];
+
+    int humanWon;
+
+    Rule rules[] =
     {
-        char humanChoice[10];
-        char computerChoice[10];
+        {"Rock","Scissors"},{"Paper","Rock"},{"Scissors","Paper"}
+    };
+    
+    while(1)
+    {
+        humanWon = 0;
 
         getComputerChoice(computerChoice);
         getHumanChoice(humanChoice);
+
 
         if (strcmp(humanChoice,computerChoice) == 0)
         {
@@ -83,33 +101,63 @@ void PlayRound()
             continue;
         }
 
-        switch(humanChoice[0])
+        for (int i = 0; i <= 2;i++)
+        {
+            if(strcmp(rules[i].move,humanChoice) == 0 && strcmp(rules[i].beats,computerChoice) == 0)
+            {
+                humanWon++;
+            }
+        }
+
+        if (humanWon)
+        {
+            printf("You won! %s beats %s!\n",humanChoice,computerChoice);
+            return 1;
+        }else
+        {
+            printf("You lose! %s beats %s!\n",computerChoice,humanChoice);
+            return -1;
+        }
+
+        /*switch(humanChoice[0])
         {
             case 'R':
-                if(computerChoice == "Paper")
+                if(strcmp(computerChoice,"Paper"))
                 {
                     printf("You Lose!Paper Beats Rock!");
                 }else{ printf("You Win!Rock Beats Scissors!");}
                 break;
             case 'S':
-                if(computerChoice == "Paper")
+                if(strcmp(computerChoice,"Paper"))
                 {
                     printf("You Win!Scissors Beats Paper!");
                 }else{ printf("You Lose!Rock Beats Scissors!");}
                 break;
             case 'P':
-                if(computerChoice == "Rock")
+                if(strcmp(computerChoice,"Rock"))
                 {
                     printf("You Win!Paper Beats Rock!");
                 }else{ printf("You Lose!Scissors Beats Paper!");}
                 break;
-        }
+        }*/
+    }
+}
+
+void playGame()
+{
+    int score = 0;
+    for(int i = 1;i <=5;++i){
+        PlayRound();
+    }
+    if (score > 0){
+        printf("Human Won!");
+    }else {
+        printf("Human Lost!\n");
     }
 }
 
 int main()
 {
     srand(time(NULL));
-    printf("Start now!");
-    PlayRound();
+    playGame();
 }
