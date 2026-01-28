@@ -4,7 +4,6 @@
 #include<time.h>
 #include<ctype.h> 
 #include<stdbool.h>
-    // it work
     void getComCho(char *chcpCho){
         const char *name;
         int random = rand() % 3 +1;
@@ -22,7 +21,7 @@
         strcpy(chcpCho,name);
 }
     void getHumanCho(char *input){
-        char name[9];
+        char name[16];
         while(true){
             printf("Enter ur chois \n");
             fgets(name,sizeof(name),stdin);
@@ -40,40 +39,40 @@
         }    
 }
     void playRaond(bool *input1 , bool *input2){
-        char humanChoice[9];
-        char cmpChoice[9];
+        char humanChoice[16];
+        char cmpChoice[16];
         bool humanWin = false;
         bool Tie = false;
         getHumanCho(humanChoice);
         getComCho(cmpChoice);
         if (strcmp(humanChoice,cmpChoice) == 0){
             Tie = true;
-            printf("tie !!!\n");
+            printf("tie\n");
         }else{
             switch (humanChoice[0])
                 {
                     case 'R':
                             if(cmpChoice[0] == 'P'){
-                                printf("u lost paper wins\n");
+                                printf("computer choise is a paper u lost\n");
                         }else{
                             humanWin = true;
-                            printf("u win sissors lost\n");
+                            printf("u win cmputer choise ia a scissors\n");
                         }
                     break;
                     case 'S':
                             if(cmpChoice[0] == 'R'){
-                                printf("u lost rock wins\n");
+                                printf("u lost computer chois is a rock\n");
                             }else{
                                 humanWin = true;
-                                printf("u win paper lost\n");
+                                printf("u win computer choise is a paper \n");
                         }
                     break;
                     case 'P':
                             if(cmpChoice[0] == 'S'){
-                                printf("u lost sissors wins\n");
+                                printf("u lost computer chois is a scissors\n");
                             }else{
                                 humanWin = true;
-                                printf("u win\n");
+                                printf("u win computer chois is a rock\n");
                             }
                     break;
                     default:
@@ -84,15 +83,20 @@
         *input1 = Tie;
         *input2 = humanWin;
 }
-void playGame(){
+    void playGame(){
     int  humanConWin = 0;
     int  cmpConWin = 0;
+    int i = 1;
     bool draw;
     bool humanWins;
-    while (humanConWin < 3 || cmpConWin < 3 )
+    while (true )
         {
+            printf("================\n");
+            printf("u are in raond %d\n",i);
+            printf("================\n");
             playRaond(&draw,&humanWins);
             if(draw){
+                i++;
                 continue;
             }else{
                 if(humanWins){
@@ -102,7 +106,10 @@ void playGame(){
                 }
                 
             }
-            
+            if(humanConWin == 3 ||cmpConWin ==3){
+                break;
+            }
+            i++;
     }
 }
     int main(){
