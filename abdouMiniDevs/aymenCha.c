@@ -84,11 +84,39 @@
         *input2 = humanWin;
 }
     void playGame(){
+        while (true)
+        {
+            printf("Welcome to Rock Paper Scissors Game\n");
+            printf("if you want to play again, press 'y' or 'Y'\n");
+            char choise;
+            scanf("%c",&choise);
+            getchar();
+            if(choise == 'y' || choise =='Y'){
+                break;
+            }else{
+                printf("Goodbye!\n");
+                exit(0);
+            }
+        }
         int  humanConWin = 0;
         int  cmpConWin = 0;
         int i = 1;
+        int roundToWin;
         bool draw;
         bool humanWins;
+        while (true)
+        {
+            printf("Enter the number of rounds to win: ");
+            scanf("%d", &roundToWin);
+            getchar();
+            if (roundToWin > 0)
+            {
+                break;
+            }
+            printf("Please enter a valid number of rounds.\n");
+        }
+        
+        
         while (true )
             {
                 printf("================\n");
@@ -106,18 +134,15 @@
                     }
                     
                 }
-                if(humanConWin == 3 ||cmpConWin ==3){
+                if(humanConWin == roundToWin ||cmpConWin == roundToWin){
                     break;
                 }
                 i++;
-                printf("Final Score => You: %d | Computer: %d\n",
-        humanConWin, cmpConWin);
         }
+        printf("Final Score => You: %d | Computer: %d\n",
+        humanConWin, cmpConWin);
 }
     int main(){
         srand(time(NULL));
         playGame();
 }
-
-
-
