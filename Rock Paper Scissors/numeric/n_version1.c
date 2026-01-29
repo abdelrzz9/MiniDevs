@@ -13,7 +13,7 @@ void getHumanChoice(int *input){
       
     do
     {
-        printf("Please enter your choice.\n");
+        printf("Please enter your choice. ^^\n");
         printf("Choose: 1 = Rock, 2 = Paper, 3 = Scissors\n");
         scanf("%d", input);  
     } while (*input < 1 || *input > 3);
@@ -24,7 +24,7 @@ void getHumanChoice(int *input){
 void PlayRound(int human, int computer){
 
    if (human == computer){
-    printf("Draw!!\n");
+    printf("TIE!!\n");
    }else if (
     (human == 2 && computer == 1) ||
     (human == 1 && computer == 3) ||
@@ -48,7 +48,7 @@ int main(){
     getHumanChoice(&humanChoice);
     getComputerChoice(&computerChoice);
 
-    printf("Human chose: %d\n", humanChoice);
+    printf("YOU chose: %d\n", humanChoice);
     printf("Computer chose: %d\n", computerChoice);
 
 
