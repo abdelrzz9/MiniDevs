@@ -89,7 +89,7 @@ int PlayRound(){
 void MultiRounds(int *rounds, int humanScore, int computerScore){
 
     getNumberofRounds(rounds);
-    for (int i = 0; i < *rounds; i++)
+    for (int i = 1; i <= *rounds; i++)
     {
         printf("\n --- ROUND %d --- \n", i);
         int result = PlayRound();

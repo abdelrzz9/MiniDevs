@@ -55,7 +55,7 @@ int playRound(){
     }
 
     if (humanChoice == computerChoice){
-        printf("Tie !!\n");
+        printf("It's a tie.\n");
     }else if ((humanChoice == 1 && computerChoice == 3) ||
               (humanChoice == 2 && computerChoice == 1) || 
               (humanChoice == 3 && computerChoice == 2)){
