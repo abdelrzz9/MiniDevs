@@ -24,12 +24,20 @@ int getHumanChoice(){
     
 }
 
-void getNumberOfRounds(){
+void getNumberofRounds(int *rounds){
+    
+    do{
+        printf("--> Please enter number of rounds:\n");
+        scanf("%d", rounds);
+
+        getchar();
+
+    }while (*rounds < 1);
 
 
-}
+} 
 
-void playRound(){
+int playRound(){
     int computerChoice = getComputerChoice();
     int humanChoice = getHumanChoice();
 
@@ -51,12 +59,40 @@ void playRound(){
     }else if ((humanChoice == 1 && computerChoice == 3) ||
               (humanChoice == 2 && computerChoice == 1) || 
               (humanChoice == 3 && computerChoice == 2)){
-        printf("YOU WON !!\n");
+        printf("You won this round.\n");
+        return 1;
     }else {
-        printf("COMPUTER WONS !!\n");
+        printf("You lose this round.\n");
+        return-1;
     }
 }
 
+void MultiRounds(int *rounds, int humanScore, int computerScore){
+
+    getNumberofRounds(rounds);
+    for (int i = 0; i < *rounds; i++)
+    {
+        printf("\n --- ROUND %d --- \n", i);
+        int result = playRound();
+        if ( result == 1){
+            humanScore++;
+        }else if ( result == -1){
+            computerScore++;
+        }
+    }
+    
+    printf("\nFinal Score:\n");
+    printf("You: %d | Computer: %d\n", humanScore, computerScore);
+
+    if (humanScore > computerScore){
+        printf("YOU WON THE GAME!\n");
+    }else if (computerScore > humanScore){
+        printf("COMPUTER WON THE GAME!\n");
+    }else{
+         printf("IT'S A TIE!\n");
+    }
+    
+}
 
 
 
@@ -64,12 +100,13 @@ int main(){
 
     srand(time(NULL));
 
-    
-
     printf("           ||ROCK PAPER SCISSORS||    \n");
-    printf("Please Choose: 1 = ROCK, 2 = PAPER, 3 = SCISSORS\n");
-    playRound();
+    printf("--> Please Choose: 1 = ROCK, 2 = PAPER, 3 = SCISSORS\n");
 
-    
-    
+    int rounds;
+    int humanScore = 0;
+    int computerScore = 0;
+
+    MultiRounds(&rounds, humanScore, computerScore);
+    return 0;
 }
