@@ -26,7 +26,7 @@
             printf("Enter ur chois \n");
             fgets(name,sizeof(name),stdin);
             name[strcspn(name,"\n")] = '\0';
-            for(int i = 1 ; name[i];i++){
+            for(int i = 0 ; name[i];i++){
                 name[i] = tolower(name[i]);
             }
             name[0] = toupper(name[0]);
@@ -47,7 +47,7 @@
         getComCho(cmpChoice);
         if (strcmp(humanChoice,cmpChoice) == 0){
             Tie = true;
-            printf("tie\n");
+            printf("Tie! Computer also chose: %s\n", cmpChoice);
         }else{
             switch (humanChoice[0])
                 {
