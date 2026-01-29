@@ -46,40 +46,85 @@ void getHumanChoice(char *RPS){
     }
 }
 
-void PlayRound(){
+void getNumberofRounds(int *rounds){
+    
+    do{
+        printf("--> Please enter number of rounds:\n");
+        scanf("%d", rounds);
+
+        getchar();
+
+    }while (*rounds < 1);
+
+
+} 
+    
+int PlayRound(){
 
     char humanChoice[20];
     char computerChoice[20];
-
     getComputerChoice(computerChoice);
     getHumanChoice(humanChoice);
     printf("You chose: %s\n", humanChoice);
     printf("Computer chose: %s\n", computerChoice);
 
     if (strcmp(humanChoice, computerChoice) == 0) {
-        printf("It's a TIE!!\n");
+    printf("It's a tie.\n");
     }else if (
     (strcmp(humanChoice, "Rock") == 0 && strcmp(computerChoice, "Scissors") == 0) ||
     (strcmp(humanChoice, "Paper") == 0 && strcmp(computerChoice, "Rock") == 0) ||
     (strcmp(humanChoice, "Scissors") == 0 && strcmp(computerChoice, "Paper") == 0)
     ) {
-        printf("You WIN!!! \n");
+        printf("you win this round.\n");
+        return 1;
     }
     else {
-        printf("You LOSE \n");
+        printf("You lose this round.\n");
+        return -1;
     }
 
 
 }
 
+void MultiRounds(int *rounds, int humanScore, int computerScore){
 
+    getNumberofRounds(rounds);
+    for (int i = 0; i < *rounds; i++)
+    {
+        printf("\n --- ROUND %d --- \n", i);
+        int result = PlayRound();
+        if ( result == 1){
+            humanScore++;
+        }else if ( result == -1){
+            computerScore++;
+        }
+    }
+    
+    printf("\nFinal Score:\n");
+    printf("You: %d | Computer: %d\n", humanScore, computerScore);
+
+    if (humanScore > computerScore){
+        printf("YOU WON THE GAME!\n");
+    }else if (computerScore > humanScore){
+        printf("COMPUTER WON THE GAME!\n");
+    }else{
+         printf("IT'S A TIE!\n");
+    }
+    
+}
 
 int main(){
 
-
     srand(time(NULL));
     printf("           ||ROCK PAPER SCISSORS||    \n");
-    PlayRound();
+
+    int rounds;
+    int humanScore = 0;
+    int computerScore = 0;
+
+    MultiRounds(&rounds, humanScore, computerScore);
+
+       
     return 0;
 
 }

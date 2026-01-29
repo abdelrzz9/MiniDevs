@@ -65,6 +65,6 @@ int main(){
     printf("Please Choose: 1 = ROCK, 2 = PAPER, 3 = SCISSORS\n");
     playRound();
 
-    
+    return 0;
     
 }
