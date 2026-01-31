@@ -12,27 +12,24 @@ struct student{
 
 };
 // it works
-void accept_stuedent(char *name , char *major , int *age){
-    int iLaSt;
-    char name_local[50];
-    int age_local ;
-    char major_local[50];
+void accept_stuedent( struct student students){
+    struct student studentLocal;
     int i = 0;
     printf("Enter u student name\n");
-    fgets(name_local,sizeof(name_local),stdin);
-    name_local[strcspn(name_local,"\n")] = '\0';
+    fgets(studentLocal.name,sizeof(studentLocal.name),stdin);
+    studentLocal.name[strcspn(studentLocal.name,"\n")] = '\0';
     printf("Enter u student major\n");
-    fgets(major_local,sizeof(major_local),stdin);
-    major_local[strcspn(major_local,"\n")] = '\0';
+    fgets(studentLocal.major,sizeof(studentLocal.major),stdin);
+    studentLocal.major[strcspn(studentLocal.major,"\n")] = '\0';
         do
     {
         printf("Enter u student age\n");
-        scanf("%d",&age_local);
+        scanf("%d",&studentLocal.age);
         getchar();
-    } while (age_local <= 16 ||age_local >= 80);
-    *age = age_local;
-    strcpy(name,name_local);
-    strcpy(major,major_local);
+    } while (studentLocal.age <= 16 ||studentLocal.age >= 80);
+    students.age = studentLocal.age;
+    strcpy(students.name,studentLocal.name);
+    strcpy(students.major,studentLocal.name);
 }
 // it works
 void  id_student(char *id){
@@ -58,24 +55,51 @@ void find_last_student(int *index_void ,struct student students[1000] ){
 void add_student(struct student students[1000]){
     int iLaSt;
     find_last_student(&iLaSt,students);
-    accept_stuedent(students[iLaSt].name,students[iLaSt].major,&students[iLaSt].age);
+    accept_stuedent(students[iLaSt]);
 }
-void sw(struct student students[1000]){
 
+
+// void sw(int fi_ind,int la_ind,struct student students[1000]){
+//     char name[50], major[50], id[16];
+//     int age;
+//     for (int i = fi_ind ; i < la_ind ;i++){
+//         strcpy(name,students[i+1].name);
+//         strcpy(students[i+1].name,students[i].name);
+//         strcpy(students[i].name,name);
+//         strcpy(id,students[i+1].id);
+//         strcmp(students[i+1].id,students[i].id);
+//         strcmp(students[i].id,id);
+//         strcmp(major,students[i+1].major);
+//         strcmp(students[i+1].major,students[i].major);
+//         strcmp(students[i].major,major);
+//         age =students[i+1].age;
+//         students[i+1].age = students[i].age;
+//         students[i].age = age ;
+//     }
+// }
+
+void swap(int fiInd,int laInd,struct student students[1000]){
+struct student tempStudent;
+for ( int i =fiInd ; i < fiInd ;i++){
+    tempStudent = students[i];
+    students[i] = students[i+1];
+    students[i+1] = tempStudent;
+}
 
 }
 // find student func
 void delete_student(struct student students[1000]){
-    int iLast ,age, i =0;
-    char name[50];
-    char major[50];
-    accept_stuedent(name,major,&age);
+    int iLast , i =0;
+    struct student studentLoc;
+    accept_stuedent(studentLoc);
+    find_last_student(&iLast,students);
     for ( ; i < iLast ;i++){
-        if( name == students[i].name && age == students[i].age && major == students[i].major ){
+        if( studentLoc.age == students[i].age && strcmp(studentLoc.name,students[i].name) == 0) {
             break;
         }
     }
-
+    swap(i,iLast,students);
+    students[iLast-1].age = 0 ;
 }
 
 // it work
@@ -97,6 +121,27 @@ void  displaying_students(struct student students[1000]){
 
 int main(){
     srand(time(NULL));
-
-
+    struct student students[1000];
+        for(int i = 0 ;i<19;i++){
+        students[i]=(struct student){
+            .age = 24,
+            .name ="abderzz9",
+            .major = "ing"
+        };
+    }
+        add_student(students);
+    for (int i = 0 ; i< 20 ; i++){
+        printf("==============");
+        displaying_students(students);
+        printf("==============");
+    }
+        for(int i = 20 ;i<25;i++){
+        students[i]=(struct student){
+            .age = 24,
+            .name ="abderzz9",
+            .major = "ing"
+        };
+    }
+    delete_student(students);
+    displaying_students(students);
 }
