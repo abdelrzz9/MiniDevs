@@ -29,7 +29,7 @@ void accept_stuedent( struct student students){
     } while (studentLocal.age <= 16 ||studentLocal.age >= 80);
     students.age = studentLocal.age;
     strcpy(students.name,studentLocal.name);
-    strcpy(students.major,studentLocal.name);
+    strcpy(students.major,studentLocal.major);
 }
 // it works
 void  id_student(char *id){
