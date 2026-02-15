@@ -37,9 +37,7 @@ struct TEMPS DECOMPOS(int t){
 
 int main(){
     int n ;
-    struct TEMPS time;
     struct athlete athletes[100];
-    int tIs = 0;
     int ave = 0;
     do
     {
@@ -53,6 +51,7 @@ int main(){
         printf("Entr the name of athlat\n");
         fgets(athletes[i].Name,50,stdin);
         athletes[i].Name[strcspn(athletes[i].Name,"\n")] = "\0";
+        int tIs  = 0 ;
         do
         {
             scanf("%d",&tIs);
