@@ -37,14 +37,21 @@ void AddStudent()
     printf("What is your name? ");
     ReadInput(students[studentCounter].name, sizeof(students[studentCounter].name));
 
-    printf("How old are you? ");
-    ReadInput(buffer, sizeof(buffer));
+    do
+    {
+        printf("How old are you? ");
+        ReadInput(buffer, sizeof(buffer));
+        if(atoi(buffer) < 18)
+        {
+            printf("ERROR : Age can't be under 18!\n");
+        }
+    }while(atoi(buffer) < 18);
     students[studentCounter].age = atoi(buffer);
 
     printf("What is your major? ");
     ReadInput(students[studentCounter].major, sizeof(students[studentCounter].major));
 
-
+    printf("Student Added!\n");
     studentCounter++;
 }
 
@@ -57,7 +64,7 @@ void DisplayStudent()
 
     for(int i = 0; i < studentCounter;i++)
     {
-        printf("Name: %s\nAge: %d\nMajor: %s\nID: %s\n\n",
+        printf("Name: %s   |   Age: %d   |   Major: %s   ID: %s\n",
             students[i].name,
             students[i].age,
             students[i].major,
@@ -67,6 +74,12 @@ void DisplayStudent()
 
 int FindStudent()
 {
+    if(studentCounter == 0)
+    {
+        printf("No Students Added yet!\n");
+        return -1;
+    }
+
     char buffer[100];
     printf("Select Student ID? ");
     ReadInput(buffer,sizeof(buffer));

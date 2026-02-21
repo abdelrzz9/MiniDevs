@@ -43,19 +43,21 @@ void update_file(User users[100],int count)
 void read_file(User users[100],int count)
 {
     char line[50];
-    char new_first_name[50];
-    char new_last_name[50];
-    char new_phone_numer[50];
+    char *new_first_name;
+    char *new_last_name;
+    char *new_phone_number;
 
     FILE *F;
     F = fopen("phone-numbers.txt","r");
     while(fgets(line,sizeof(line),F))
     {
-        strcpy(new_first_name,strtok(" ",line));
-        strcpy(new_first_name,strtok(NULL,line));
-        printf("%s",line);
-        printf("%s",new_first_name);
-        printf("%s",new_last_name);
+        new_first_name = strtok(line," ");
+        new_last_name = strtok(NULL," ");
+        new_phone_number = strtok(NULL," ");
+        new_phone_number[strcspn(new_phone_number,"\n")] = '\0';
+
+        printf("First Name: %s\nLast Name: %s\nPhone Number: %s",new_first_name,new_last_name,new_phone_number);
+        printf("If this is in the same line as phone number then we're good!");
     }
     fclose(F);
 }
@@ -92,24 +94,6 @@ int main()
     scanf("%c",&choice);
     if(choice == '1')
     {
-        if(create_user(users,count))
-        {
-            count++;
-            update_file(users,count);
-        }
-
-        if(create_user(users,count))
-        {
-            count++;
-            update_file(users,count);
-        }
-
-        if(create_user(users,count))
-        {
-            count++;
-            update_file(users,count);
-        }
-
         read_file(users,count);
     }
 } 
