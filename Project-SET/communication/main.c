@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 typedef struct
@@ -14,6 +15,9 @@ typedef struct
     long int phone_number;
     Mail mailbox[10];
 }User;
+
+User users[100];
+int count = 0;
 
 int create_user(User users[100],int count)
 {
@@ -40,12 +44,14 @@ void update_file(User users[100],int count)
     fclose(F);
 }
 
-void read_file(User users[100],int count)
+void read_file()
 {
     char line[50];
     char *new_first_name;
     char *new_last_name;
     char *new_phone_number;
+
+    //read file is supposed to be executed only once, that one time when the code launches first.
 
     FILE *F;
     F = fopen("phone-numbers.txt","r");
@@ -54,19 +60,20 @@ void read_file(User users[100],int count)
         new_first_name = strtok(line," ");
         new_last_name = strtok(NULL," ");
         new_phone_number = strtok(NULL," ");
-        new_phone_number[strcspn(new_phone_number,"\n")] = '\0';
 
-        printf("First Name: %s\nLast Name: %s\nPhone Number: %s",new_first_name,new_last_name,new_phone_number);
-        printf("If this is in the same line as phone number then we're good!");
+        strcpy(users[count].first_name,new_first_name);
+        strcpy(users[count].last_name,new_last_name);
+        users[count].phone_number = atoi(new_phone_number);
+        count++;
     }
     fclose(F);
 }
 
 int find_user(User users[100],int count)
 {
-    int buffer;
+    long int buffer;
     printf("What is the phone numer? ");
-    scanf("%d",&buffer);
+    scanf("%ld",&buffer);
     for(int i = 0; i < count; i++)
     {
         if(users[i].phone_number == buffer)
@@ -77,7 +84,38 @@ int find_user(User users[100],int count)
     }
 
     printf("Number Not found!");
-    return 0;
+    return -1;
+}
+
+void edit_user(User users[100], int count)
+{
+    int index = find_user(users, count);
+
+    if(index != -1){
+        printf("New First Name: ");
+    scanf("%s", users[index].first_name);
+
+    printf("New Last Name: ");
+    scanf("%s", users[index].last_name);
+
+    printf("New Phone Number: ");
+    scanf("%ld", &users[index].phone_number);
+
+    printf("User Updated!\n");
+    update_file(users,count);
+    }      
+}
+
+void delete_user(User users[100],int count){
+    int index = find_user(users,count);
+
+    for(int i = index; i < count-1;i++){
+        strcpy(users[i].first_name,users[i+1].first_name);
+        strcpy(users[i].last_name,users[i+1].last_name);
+        users[i].phone_number = users[i+1].phone_number;
+    }
+    count--;
+    update_file(users,count);
 }
 
 int main()
@@ -87,13 +125,11 @@ int main()
     printf("2.Leave a message\n");
     printf("3.Exit\n");
 
-    User users[100];
-    int count = 0;
-
+    read_file(users,count);
     char choice;
     scanf("%c",&choice);
     if(choice == '1')
     {
-        read_file(users,count);
+        delete_user(users,count);
     }
 } 
